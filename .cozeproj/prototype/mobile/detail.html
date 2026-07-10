@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>商品详情 - 禅理工商城</title>
+
+  <link href="https://lf-code-agent.coze.cn/obj/x-ai-cn/fonts/google/google-all-fonts.css" rel="stylesheet"/>
+
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary:              #E11D48;
+      --color-primary-container:    #FFE4E6;
+      --color-on-primary:           #ffffff;
+      --color-background:                 #FFFFFF;
+      --color-surface-container-lowest:   #FFFFFF;
+      --color-surface:                    #FAFAFA;
+      --color-surface-container:          #F5F5F5;
+      --color-surface-container-high:     #E5E5E5;
+      --color-surface-container-highest:  #D4D4D4;
+      --color-on-surface:           #18181B;
+      --color-on-surface-variant:   #71717A;
+      --color-success:  #22c55e;
+      --color-error:    #ef4444;
+      --color-warning:  #f59e0b;
+      --color-outline:          #E4E4E7;
+      --color-outline-variant:  #A1A1AA;
+      --radius-sm:   0.25rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 4px 12px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.15);
+      --font-sans: "Manrope", "Noto Sans SC", system-ui, sans-serif;
+    }
+  </style>
+
+  <style>
+    body { min-height: max(812px, 100dvh); font-family: system-ui, sans-serif; }
+    .image-gallery { position: relative; }
+    .gallery-thumb { opacity: 0.6; transition: opacity 0.2s; }
+    .gallery-thumb.active { opacity: 1; border: 2px solid #E11D48; }
+  </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
+</head>
+
+<body class="bg-background text-on-surface font-sans">
+
+  <!-- Header（二级页，有返回按钮） -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4">
+    <button onclick="history.back()" class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container active:bg-surface-container-high transition-colors">
+      <i data-lucide="arrow-left" class="w-5 h-5"></i>
+    </button>
+    <h1 class="text-base font-semibold text-on-surface">商品详情</h1>
+    <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+      <i data-lucide="share-2" class="w-5 h-5"></i>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
+
+    <!-- 商品图片展示 -->
+    <section class="image-gallery">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600" alt="蓝牙无线耳机" data-category="商业科技" id="mainImage" class="w-full h-72 object-cover">
+      <!-- 图片缩略图 -->
+      <div class="flex justify-center gap-2 py-3 bg-surface">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=75" alt="耳机正面" data-category="商业科技" class="gallery-thumb active w-16 h-12 object-cover rounded cursor-pointer" onclick="switchImage(0)">
+        <img src="https://images.unsplash.com/photo-1484704838426-c09bfe7b4b70?w=100&h=75" alt="耳机侧面" data-category="商业科技" class="gallery-thumb w-16 h-12 object-cover rounded cursor-pointer" onclick="switchImage(1)">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=100&h=75" alt="耳机细节" data-category="商业科技" class="gallery-thumb w-16 h-12 object-cover rounded cursor-pointer" onclick="switchImage(2)">
+      </div>
+    </section>
+
+    <!-- 商品基本信息 -->
+    <section class="px-4 pt-4">
+      <div class="bg-surface rounded-xl shadow-card p-4">
+        <h2 class="text-xl font-bold text-on-surface">蓝牙无线耳机 Pro版</h2>
+        <p class="text-sm text-on-surface-variant mt-2">高清音质 · 40小时续航 · 主动降噪 · IPX5防水</p>
+        
+        <!-- 价格区域 -->
+        <div class="flex items-baseline gap-2 mt-3">
+          <span class="text-2xl font-bold text-primary">¥129</span>
+          <span class="text-sm text-on-surface-variant line-through">¥259</span>
+          <span class="text-xs bg-primary-container text-primary px-2 py-0.5 rounded-full font-semibold">限时5折</span>
+        </div>
+
+        <!-- 销量评价 -->
+        <div class="flex items-center gap-4 mt-3">
+          <div class="flex items-center gap-1">
+            <i data-lucide="star" class="w-4 h-4 text-warning fill-warning"></i>
+            <span class="text-sm font-semibold text-on-surface">4.9</span>
+            <span class="text-xs text-on-surface-variant">(256评价)</span>
+          </div>
+          <span class="text-sm text-success font-semibold">已售 1256件</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 规格选择 -->
+    <section class="px-4 pt-4">
+      <div class="bg-surface rounded-xl shadow-card p-4">
+        <h3 class="text-base font-semibold text-on-surface mb-3">选择规格</h3>
+        <!-- 颜色选择 -->
+        <div class="mb-4">
+          <p class="text-xs text-on-surface-variant mb-2">颜色</p>
+          <div class="flex gap-2">
+            <button class="px-4 py-2 rounded-full bg-surface-container text-sm font-semibold text-on-surface border-2 border-primary">白色</button>
+            <button class="px-4 py-2 rounded-full bg-surface-container text-sm font-semibold text-on-surface-variant border border-outline-variant/30">黑色</button>
+            <button class="px-4 py-2 rounded-full bg-surface-container text-sm font-semibold text-on-surface-variant border border-outline-variant/30">蓝色</button>
+          </div>
+        </div>
+        <!-- 版本选择 -->
+        <div>
+          <p class="text-xs text-on-surface-variant mb-2">版本</p>
+          <div class="flex gap-2">
+            <button class="px-4 py-2 rounded-full bg-primary-container text-sm font-semibold text-primary border-2 border-primary">降噪版</button>
+            <button class="px-4 py-2 rounded-full bg-surface-container text-sm font-semibold text-on-surface-variant border border-outline-variant/30">标准版</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 商品详情 -->
+    <section class="px-4 pt-4">
+      <div class="bg-surface rounded-xl shadow-card p-4">
+        <h3 class="text-base font-semibold text-on-surface mb-3">商品详情</h3>
+        <div class="text-sm text-on-surface space-y-3">
+          <p><span class="font-semibold">品牌：</span>SoundMax</p>
+          <p><span class="font-semibold">型号：</span>SM-Pro2024</p>
+          <p><span class="font-semibold">续航：</span>40小时（降噪开启）/ 60小时（降噪关闭）</p>
+          <p><span class="font-semibold">防水等级：</span>IPX5</p>
+          <p><span class="font-semibold">连接方式：</span>蓝牙5.3，支持双设备连接</p>
+          <p><span class="font-semibold">充电接口：</span>Type-C快充（10分钟充电=3小时使用）</p>
+        </div>
+        
+        <!-- 详情图片 -->
+        <div class="mt-4 space-y-3">
+          <img src="https://images.unsplash.com/photo-1484704838426-c09bfe7b4b70?w=600&h=400" alt="产品细节图" data-category="商业科技" class="w-full rounded-lg">
+          <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&h=400" alt="使用场景" data-category="商业科技" class="w-full rounded-lg">
+        </div>
+      </div>
+    </section>
+
+    <!-- 用户评价 -->
+    <section class="px-4 pt-4 pb-4">
+      <div class="bg-surface rounded-xl shadow-card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-base font-semibold text-on-surface">用户评价 (256)</h3>
+          <a href="#" class="text-sm text-on-surface-variant flex items-center gap-1">
+            查看全部
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+        
+        <!-- 评价项 -->
+        <div class="space-y-3">
+          <div class="flex gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface font-semibold">李</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-semibold text-on-surface">李同学</span>
+                <div class="flex items-center">
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                </div>
+              </div>
+              <p class="text-xs text-on-surface mt-1">音质很棒，降噪效果明显，上课用完全够用！续航也很长，充电很快。</p>
+              <span class="text-xs text-on-surface-variant mt-1">2024-01-15 · 白色降噪版</span>
+            </div>
+          </div>
+          
+          <div class="flex gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface font-semibold">张</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-semibold text-on-surface">张同学</span>
+                <div class="flex items-center">
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning fill-warning"></i>
+                  <i data-lucide="star" class="w-3 h-3 text-warning"></i>
+                </div>
+              </div>
+              <p class="text-xs text-on-surface mt-1">性价比很高，比外面买的便宜一半，质量也很好。</p>
+              <span class="text-xs text-on-surface-variant mt-1">2024-01-12 · 黑色标准版</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 底部操作栏（加入购物车/立即购买） -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-outline-variant/20 pb-[env(safe-area-inset-bottom)]">
+    <!-- 操作按钮 -->
+    <div class="flex items-center justify-between px-4 py-3">
+      <!-- 左侧图标 -->
+      <div class="flex items-center gap-4">
+        <a href="#" class="flex flex-col items-center gap-0.5">
+          <i data-lucide="message-circle" class="w-5 h-5 text-on-surface-variant"></i>
+          <span class="text-xs text-on-surface-variant">客服</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-0.5">
+          <i data-lucide="heart" class="w-5 h-5 text-on-surface-variant"></i>
+          <span class="text-xs text-on-surface-variant">收藏</span>
+        </a>
+        <a href="cart.html" class="flex flex-col items-center gap-0.5 relative">
+          <i data-lucide="shopping-cart" class="w-5 h-5 text-on-surface-variant"></i>
+          <span class="absolute -top-1 -right-1 bg-primary text-on-primary text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">3</span>
+          <span class="text-xs text-on-surface-variant">购物车</span>
+        </a>
+      </div>
+      <!-- 右侧按钮 -->
+      <div class="flex items-center gap-3">
+        <button class="bg-warning text-on-primary px-5 py-2.5 rounded-full font-semibold text-sm">
+          加入购物车
+        </button>
+        <button class="bg-primary text-on-primary px-5 py-2.5 rounded-full font-semibold text-sm shadow-float">
+          立即购买
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    
+    // 图片切换逻辑
+    const images = [
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600',
+      'https://images.unsplash.com/photo-1484704838426-c09bfe7b4b70?w=800&h=600',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600'
+    ];
+    const thumbs = document.querySelectorAll('.gallery-thumb');
+    const mainImage = document.getElementById('mainImage');
+    
+    function switchImage(index) {
+      mainImage.src = images[index];
+      thumbs.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>个人中心 - 禅理工商城</title>
+
+  <link href="https://lf-code-agent.coze.cn/obj/x-ai-cn/fonts/google/google-all-fonts.css" rel="stylesheet"/>
+
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary:              #E11D48;
+      --color-primary-container:    #FFE4E6;
+      --color-on-primary:           #ffffff;
+      --color-background:                 #FFFFFF;
+      --color-surface-container-lowest:   #FFFFFF;
+      --color-surface:                    #FAFAFA;
+      --color-surface-container:          #F5F5F5;
+      --color-surface-container-high:     #E5E5E5;
+      --color-surface-container-highest:  #D4D4D4;
+      --color-on-surface:           #18181B;
+      --color-on-surface-variant:   #71717A;
+      --color-success:  #22c55e;
+      --color-error:    #ef4444;
+      --color-warning:  #f59e0b;
+      --color-outline:          #E4E4E7;
+      --color-outline-variant:  #A1A1AA;
+      --radius-sm:   0.25rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 4px 12px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.15);
+      --font-sans: "Manrope", "Noto Sans SC", system-ui, sans-serif;
+    }
+  </style>
+
+  <style>
+    body { min-height: max(812px, 100dvh); font-family: system-ui, sans-serif; }
+  </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
+</head>
+
+<body class="bg-background text-on-surface font-sans">
+
+  <!-- Header -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-center px-4">
+    <h1 class="text-lg font-bold text-on-surface">个人中心</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="overflow-y-auto pb-[calc(3.5rem+env(safe-area-inset-bottom))]">
+
+    <!-- 用户信息卡片 -->
+    <section class="px-4 pt-4">
+      <div class="bg-primary-container rounded-xl p-4 flex items-center gap-4">
+        <div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-on-primary text-2xl font-bold">
+          初
+        </div>
+        <div class="flex-1">
+          <h2 class="text-lg font-bold text-on-surface">小初</h2>
+          <p class="text-sm text-on-surface-variant mt-1">福理工学生 · 会员等级: VIP</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">新用户专享</span>
+            <span class="text-xs bg-success/20 text-success px-2 py-0.5 rounded-full">累计消费¥368</span>
+          </div>
+        </div>
+        <button class="text-on-surface-variant">
+          <i data-lucide="chevron-right" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- 订单状态快捷入口 -->
+    <section class="px-4 pt-4">
+      <div class="bg-surface rounded-xl shadow-card p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-base font-semibold text-on-surface">我的订单</h3>
+          <a href="#" class="text-sm text-on-surface-variant flex items-center gap-1">
+            全部订单
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+        <div class="flex justify-around">
+          <a href="#" class="flex flex-col items-center gap-1.5 py-2">
+            <div class="relative">
+              <i data-lucide="wallet" class="w-6 h-6 text-on-surface-variant"></i>
+              <span class="absolute -top-1 -right-1 bg-primary text-on-primary text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">2</span>
+            </div>
+            <span class="text-xs text-on-surface">待付款</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-1.5 py-2">
+            <i data-lucide="package" class="w-6 h-6 text-on-surface-variant"></i>
+            <span class="text-xs text-on-surface">待发货</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-1.5 py-2">
+            <div class="relative">
+              <i data-lucide="truck" class="w-6 h-6 text-on-surface-variant"></i>
+              <span class="absolute -top-1 -right-1 bg-success text-on-primary text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
+            </div>
+            <span class="text-xs text-on-surface">待收货</span>
+          </a>
+          <a href="#" class="flex flex-col items-center gap-1.5 py-2">
+            <i data-lucide="star" class="w-6 h-6 text-on-surface-variant"></i>
+            <span class="text-xs text-on-surface">待评价</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 常用功能 -->
+    <section class="px-4 pt-4">
+      <div class="bg-surface rounded-xl shadow-card">
+        <!-- 地址管理 -->
+        <a href="#" class="flex items-center justify-between px-4 py-3.5 border-b border-outline-variant/10">
+          <div class="flex items-center gap-3">
+            <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+            <span class="text-sm font-semibold text-on-surface">收货地址管理</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant">3个地址</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+          </div>
+        </a>
+        <!-- 优惠券 -->
+        <a href="#" class="flex items-center justify-between px-4 py-3.5 border-b border-outline-variant/10">
+          <div class="flex items-center gap-3">
+            <i data-lucide="ticket" class="w-5 h-5 text-warning"></i>
+            <span class="text-sm font-semibold text-on-surface">我的优惠券</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-success font-semibold">5张可用</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+          </div>
+        </a>
+        <!-- 收藏商品 -->
+        <a href="#" class="flex items-center justify-between px-4 py-3.5 border-b border-outline-variant/10">
+          <div class="flex items-center gap-3">
+            <i data-lucide="heart" class="w-5 h-5 text-error"></i>
+            <span class="text-sm font-semibold text-on-surface">我的收藏</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant">12件商品</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+          </div>
+        </a>
+        <!-- 购物记录 -->
+        <a href="#" class="flex items-center justify-between px-4 py-3.5 border-b border-outline-variant/10">
+          <div class="flex items-center gap-3">
+            <i data-lucide="history" class="w-5 h-5 text-on-surface-variant"></i>
+            <span class="text-sm font-semibold text-on-surface">浏览历史</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant">今天8件</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+          </div>
+        </a>
+        <!-- 客服帮助 -->
+        <a href="#" class="flex items-center justify-between px-4 py-3.5">
+          <div class="flex items-center gap-3">
+            <i data-lucide="headphones" class="w-5 h-5 text-success"></i>
+            <span class="text-sm font-semibold text-on-surface">客服帮助</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 设置与帮助 -->
+    <section class="px-4 pt-4 pb-4">
+      <div class="bg-surface rounded-xl shadow-card">
+        <a href="#" class="flex items-center justify-between px-4 py-3.5 border-b border-outline-variant/10">
+          <div class="flex items-center gap-3">
+            <i data-lucide="settings" class="w-5 h-5 text-on-surface-variant"></i>
+            <span class="text-sm font-semibold text-on-surface">设置</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+        </a>
+        <a href="#" class="flex items-center justify-between px-4 py-3.5">
+          <div class="flex items-center gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-on-surface-variant"></i>
+            <span class="text-sm font-semibold text-on-surface">关于福理工商城</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-on-surface-variant">v1.0.0</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 text-on-surface-variant/50"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TabBar -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="home" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">首页</span>
+    </a>
+    <a href="hot.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="flame" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">热销</span>
+    </a>
+    <a href="cart.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">购物车</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-primary" aria-current="page">
+      <i data-lucide="user" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">我的</span>
+    </a>
+  </nav>
+
+  <script>lucide.createIcons();</script>
+</body>
+
+</html>

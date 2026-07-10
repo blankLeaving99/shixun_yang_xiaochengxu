@@ -11,39 +11,61 @@ page {
 :root,
 page,
 root-portal {
-  --background: lab(100% 0 0);
-  --foreground: lab(2.75381% 0 0);
-  --card: lab(100% 0 0);
-  --card-foreground: lab(2.75381% 0 0);
-  --popover: lab(100% 0 0);
-  --popover-foreground: lab(2.75381% 0 0);
-  --primary: lab(7.78201% -0.0000149012 0);
-  --primary-foreground: lab(98.26% 0 0);
-  --secondary: lab(96.52% -0.0000298023 0.0000119209);
-  --secondary-foreground: lab(7.78201% -0.0000149012 0);
-  --muted: lab(96.52% -0.0000298023 0.0000119209);
-  --muted-foreground: lab(48.496% 0 0);
-  --accent: lab(96.52% -0.0000298023 0.0000119209);
-  --accent-foreground: lab(7.78201% -0.0000149012 0);
-  --destructive: lab(48.4493% 77.4328 61.5452);
-  --destructive-foreground: lab(96.4152% 3.22586 1.14673);
-  --border: lab(90.952% 0 -0.0000119209);
-  --input: lab(90.952% 0 -0.0000119209);
-  --ring: lab(66.128% -0.0000298023 0.0000119209);
-  --sidebar: lab(98.26% 0 0);
-  --sidebar-foreground: lab(2.75381% 0 0);
-  --sidebar-primary: lab(7.78201% -0.0000149012 0);
-  --sidebar-primary-foreground: lab(98.26% 0 0);
-  --sidebar-accent: lab(96.52% -0.0000298023 0.0000119209);
-  --sidebar-accent-foreground: lab(7.78201% -0.0000149012 0);
-  --sidebar-border: lab(90.952% 0 -0.0000119209);
-  --sidebar-ring: lab(66.128% -0.0000298023 0.0000119209);
-  --surface: lab(97.68% -0.0000298023 0.0000119209);
+  /* === 品牌色（大胆活力 - 电商促销感） === */
+  --background: #ffffff;
+  --foreground: #18181B;
+  --card: #ffffff;
+  --card-foreground: #18181B;
+  --popover: #ffffff;
+  --popover-foreground: #18181B;
+  --primary: #E11D48;
+  --primary-foreground: #ffffff;
+  --secondary: #F5F5F5;
+  --secondary-foreground: #18181B;
+  --muted: #F5F5F5;
+  --muted-foreground: #71717A;
+  --accent: #FFE4E6;
+  --accent-foreground: #E11D48;
+  --destructive: #E11D48;
+  --destructive-foreground: #ffffff;
+  --border: #E4E4E7;
+  --input: #F5F5F5;
+  --ring: #E11D48;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #18181B;
+  --sidebar-primary: #E11D48;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #FFE4E6;
+  --sidebar-accent-foreground: #E11D48;
+  --sidebar-border: #E4E4E7;
+  --sidebar-ring: #E11D48;
+  --surface: #FAFAFA;
   --code: var(--surface);
-  --code-highlight: lab(95.36% 0 0);
-  --code-number: lab(48.96% 0 0);
-  --selection: lab(2.75381% 0 0);
-  --selection-foreground: lab(100% 0 0);
+  --code-highlight: #E5E5E5;
+  --code-number: #71717A;
+  --selection: #E11D48;
+  --selection-foreground: #ffffff;
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  /* === 圆角（12px 主基调） === */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+  /* === 表面色阶（层级清晰） === */
+  --primary-container: #FFE4E6;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-high: #E5E5E5;
+  --surface-container-highest: #D4D4D4;
+  /* === 阴影（明显，卡片漂浮感） === */
+  --shadow-card: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-float: 0 10px 25px rgba(0,0,0,0.12);
+  --shadow-dialog: 0 25px 50px rgba(0,0,0,0.15);
+  /* === 字体 === */
+  --font-sans: "Manrope", "Noto Sans SC", system-ui, sans-serif;
   --tw-shadow: 0 0 #0000;
   --tw-shadow-color: initial;
   --tw-shadow-alpha: 100%;

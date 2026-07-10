@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>首页 - 福理工商城</title>
+
+  <link href="https://lf-code-agent.coze.cn/obj/x-ai-cn/fonts/google/google-all-fonts.css" rel="stylesheet"/>
+
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/jquery/jquery-3.7.1.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/lucide/lucide-1.11.0.min.js"></script>
+  <script src="https://lf-code-agent.coze.cn/obj/x-ai-cn/cdn/tailwindcss/tailwindcss-browser-4.2.4.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary:              #E11D48;
+      --color-primary-container:    #FFE4E6;
+      --color-on-primary:           #ffffff;
+      --color-background:                 #FFFFFF;
+      --color-surface-container-lowest:   #FFFFFF;
+      --color-surface:                    #FAFAFA;
+      --color-surface-container:          #F5F5F5;
+      --color-surface-container-high:     #E5E5E5;
+      --color-surface-container-highest:  #D4D4D4;
+      --color-on-surface:           #18181B;
+      --color-on-surface-variant:   #71717A;
+      --color-success:  #22c55e;
+      --color-error:    #ef4444;
+      --color-warning:  #f59e0b;
+      --color-outline:          #E4E4E7;
+      --color-outline-variant:  #A1A1AA;
+      --radius-sm:   0.25rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-xl:   1rem;
+      --radius-2xl:  1.5rem;
+      --radius-full: 9999px;
+      --shadow-card:   0 4px 12px rgba(0,0,0,0.08);
+      --shadow-float:  0 10px 25px rgba(0,0,0,0.12);
+      --shadow-dialog: 0 25px 50px rgba(0,0,0,0.15);
+      --font-sans: "Manrope", "Noto Sans SC", system-ui, sans-serif;
+    }
+  </style>
+
+  <style>
+    body { min-height: max(812px, 100dvh); font-family: system-ui, sans-serif; }
+    .carousel-container { position: relative; overflow: hidden; }
+    .carousel-track { display: flex; transition: transform 0.5s ease; }
+    .carousel-slide { flex: 0 0 100%; }
+    .carousel-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .carousel-dot.active { background: #E11D48; width: 18px; border-radius: 3px; }
+  </style>
+
+  <script>
+    document.addEventListener('error', function (e) {
+      const img = e.target;
+      if (img.tagName !== 'IMG' || img.dataset.fallback) return;
+      img.dataset.fallback = '1';
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const cat = img.getAttribute('data-category') || '其他';
+      const alt = img.getAttribute('alt') || '';
+      const label = esc(alt.length > 8 ? alt.slice(0, 8) + '…' : alt);
+      const icons = { '人物': '👤', '自然风景': '🏞', '动物': '🐾', '建筑城市': '🏙', '运动体育': '⚽', '交通工具': '🚗', '食物': '🍽', '服饰时尚': '👗', '商业科技': '💼', '游戏娱乐': '🎮', '艺术': '🎨', '其他': '🖼' };
+      const icon = icons[cat] || '🖼';
+      const w = img.width || 400, h = img.height || 300;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="45%" text-anchor="middle" font-size="${Math.min(w, h) * 0.18}" dominant-baseline="central">${icon}</text><text x="50%" y="68%" text-anchor="middle" font-size="${Math.min(w, h) * 0.07}" fill="%239ca3af" font-family="system-ui,sans-serif" dominant-baseline="central">${label}</text></svg>`;
+      img.src = 'data:image/svg+xml,' + svg;
+    }, true);
+  </script>
+</head>
+
+<body class="bg-background text-on-surface font-sans">
+
+  <!-- Header -->
+  <header class="bg-background sticky top-0 z-40 h-14 flex items-center justify-between px-4">
+    <h1 class="text-lg font-bold text-primary">福理工商城</h1>
+    <button class="w-10 h-10 flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container transition-colors">
+      <i data-lucide="search" class="w-5 h-5"></i>
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="overflow-y-auto pb-[calc(3.5rem+env(safe-area-inset-bottom))]">
+
+    <!-- 轮播图区域 -->
+    <section class="px-4 pt-3">
+      <div class="carousel-container rounded-xl shadow-card">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Slide 1 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&h=400" alt="开学季大促销" data-category="商业科技" class="w-full h-44 object-cover rounded-xl">
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1556742049-0f7561f9c9d9?w=800&h=400" alt="数码产品特惠" data-category="商业科技" class="w-full h-44 object-cover rounded-xl">
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1555529669-e69e55f0f34a?w=800&h=400" alt="校园生活好物" data-category="服饰时尚" class="w-full h-44 object-cover rounded-xl">
+          </div>
+        </div>
+        <!-- 轮播指示点 -->
+        <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+          <span class="carousel-dot active"></span>
+          <span class="carousel-dot"></span>
+          <span class="carousel-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分类快捷入口 -->
+    <section class="px-4 pt-4">
+      <div class="flex justify-between gap-2">
+        <a href="hot.html" class="flex flex-col items-center gap-1 py-3 px-3 bg-surface-container rounded-xl flex-1">
+          <i data-lucide="flame" class="w-6 h-6 text-primary"></i>
+          <span class="text-xs font-semibold text-on-surface">热销</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-1 py-3 px-3 bg-surface-container rounded-xl flex-1">
+          <i data-lucide="smartphone" class="w-6 h-6 text-on-surface-variant"></i>
+          <span class="text-xs font-semibold text-on-surface">数码</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-1 py-3 px-3 bg-surface-container rounded-xl flex-1">
+          <i data-lucide="shirt" class="w-6 h-6 text-on-surface-variant"></i>
+          <span class="text-xs font-semibold text-on-surface">服饰</span>
+        </a>
+        <a href="#" class="flex flex-col items-center gap-1 py-3 px-3 bg-surface-container rounded-xl flex-1">
+          <i data-lucide="book-open" class="w-6 h-6 text-on-surface-variant"></i>
+          <span class="text-xs font-semibold text-on-surface">图书</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 商品网格列表 -->
+    <section class="px-4 pt-6">
+      <h2 class="text-base font-bold text-on-surface mb-3">推荐商品</h2>
+      <div class="grid grid-cols-2 gap-3">
+        <!-- 商品卡片 1 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf79?w=400&h=300" alt="简约手表" data-category="服饰时尚" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">简约石英手表</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">日常搭配必备</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥128</span>
+              <span class="text-xs text-on-surface-variant">¥199</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 256</span>
+            </div>
+          </div>
+        </a>
+        <!-- 商品卡片 2 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300" alt="无线耳机" data-category="商业科技" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">蓝牙无线耳机</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">高清音质长续航</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥89</span>
+              <span class="text-xs text-on-surface-variant">¥159</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 512</span>
+            </div>
+          </div>
+        </a>
+        <!-- 商品卡片 3 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec432e49c5?w=400&h=300" alt="运动鞋" data-category="运动体育" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">校园运动鞋</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">舒适透气百搭</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥168</span>
+              <span class="text-xs text-on-surface-variant">¥299</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 189</span>
+            </div>
+          </div>
+        </a>
+        <!-- 商品卡片 4 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300" alt="学习笔记本" data-category="其他" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">精美笔记本</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">学习记录必备</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥15</span>
+              <span class="text-xs text-on-surface-variant">¥25</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 1024</span>
+            </div>
+          </div>
+        </a>
+        <!-- 商品卡片 5 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1585386959914-3b3e4e5e0c4e?w=400&h=300" alt="台灯" data-category="商业科技" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">护眼台灯</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">宿舍学习好帮手</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥58</span>
+              <span class="text-xs text-on-surface-variant">¥98</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 368</span>
+            </div>
+          </div>
+        </a>
+        <!-- 商品卡片 6 -->
+        <a href="detail.html" class="bg-surface rounded-xl shadow-card overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1553062407-3ee48cd3582a?w=400&h=300" alt="背包" data-category="服饰时尚" class="w-full h-32 object-cover">
+          <div class="p-3">
+            <h3 class="text-sm font-semibold text-on-surface truncate">简约双肩包</h3>
+            <p class="text-xs text-on-surface-variant mt-1 truncate">大容量轻便</p>
+            <div class="flex items-baseline gap-1 mt-2">
+              <span class="text-base font-bold text-primary">¥79</span>
+              <span class="text-xs text-on-surface-variant">¥139</span>
+            </div>
+            <div class="flex items-center gap-1 mt-1">
+              <span class="text-xs text-success font-semibold">已售 245</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TabBar -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-surface flex justify-around items-center h-14 pb-[env(safe-area-inset-bottom)] border-t border-outline-variant/20">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-primary" aria-current="page">
+      <i data-lucide="home" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">首页</span>
+    </a>
+    <a href="hot.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="flame" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">热销</span>
+    </a>
+    <a href="cart.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">购物车</span>
+    </a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 px-4 py-1.5 text-on-surface-variant hover:text-on-surface transition-colors">
+      <i data-lucide="user" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold tracking-wide">我的</span>
+    </a>
+  </nav>
+
+  <script>
+    lucide.createIcons();
+    // 简易轮播逻辑
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.carousel-dot');
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % 3;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+    }, 3000);
+  </script>
+</body>
+
+</html>
