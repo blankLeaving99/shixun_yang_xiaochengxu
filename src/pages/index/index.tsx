@@ -127,52 +127,56 @@ const IndexPage = () => {
             <Text className="block text-gray-400 text-sm">暂无商品</Text>
           </View>
         ) : (
-          <View className="flex flex-row flex-wrap gap-2">
-            {products.map((product) => (
-              <Card
-                key={product.id}
-                className="w-[calc(50%-4px)] rounded-xl overflow-hidden"
-                onClick={() => goToDetail(product.id)}
-              >
-                <CardContent className="p-0">
-                  <View className="w-full h-24 bg-gray-100 flex items-center justify-center">
-                    {product.image_url ? (
-                      <Image
-                        className="w-full h-full object-cover"
-                        src={product.image_url}
-                        mode="aspectFill"
-                      />
-                    ) : (
-                      <Gift size={32} color="#999" />
-                    )}
-                  </View>
-                  <View className="p-2">
-                    <Text className="block text-sm font-medium text-gray-900 truncate">
-                      {product.name}
-                    </Text>
-                    <View className="flex flex-row items-center gap-1 mt-1">
-                      <Text className="block text-base font-bold text-rose-600">
-                        ¥{product.price}
-                      </Text>
-                      {product.original_price > product.price && (
-                        <Text className="block text-xs text-gray-400 line-through">
-                          ¥{product.original_price}
+          <View>
+            {Array.from({ length: Math.ceil(products.length / 2) }, (_, rowIndex) => (
+              <View key={rowIndex} className="flex flex-row gap-2 mb-2">
+                {products.slice(rowIndex * 2, rowIndex * 2 + 2).map((product) => (
+                  <Card
+                    key={product.id}
+                    className="flex-1 rounded-xl overflow-hidden"
+                    onClick={() => goToDetail(product.id)}
+                  >
+                    <CardContent className="p-0">
+                      <View className="w-full h-24 bg-gray-100 flex items-center justify-center">
+                        {product.image_url ? (
+                          <Image
+                            className="w-full h-full"
+                            src={product.image_url}
+                            mode="aspectFill"
+                          />
+                        ) : (
+                          <Gift size={32} color="#999" />
+                        )}
+                      </View>
+                      <View className="p-2">
+                        <Text className="block text-sm font-medium text-gray-900 truncate">
+                          {product.name}
                         </Text>
-                      )}
-                    </View>
-                    <View className="flex flex-row items-center gap-1 mt-1">
-                      {product.is_hot && (
-                        <Badge className="bg-rose-600 text-white text-xs px-1 py-1 rounded">
-                          热销
-                        </Badge>
-                      )}
-                      <Text className="block text-xs text-gray-400">
-                        已售{product.sales_count}
-                      </Text>
-                    </View>
-                  </View>
-                </CardContent>
-              </Card>
+                        <View className="flex flex-row items-center gap-1 mt-1">
+                          <Text className="block text-base font-bold text-rose-600">
+                            ¥{product.price}
+                          </Text>
+                          {product.original_price > product.price && (
+                            <Text className="block text-xs text-gray-400 line-through">
+                              ¥{product.original_price}
+                            </Text>
+                          )}
+                        </View>
+                        <View className="flex flex-row items-center gap-1 mt-1">
+                          {product.is_hot && (
+                            <Badge className="bg-rose-600 text-white text-xs px-1 py-1 rounded">
+                              热销
+                            </Badge>
+                          )}
+                          <Text className="block text-xs text-gray-400">
+                            已售{product.sales_count}
+                          </Text>
+                        </View>
+                      </View>
+                    </CardContent>
+                  </Card>
+                ))}
+              </View>
             ))}
           </View>
         )}
