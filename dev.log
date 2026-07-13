@@ -1,0 +1,29 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.overrides", "pnpm.patchedDependencies". See https://pnpm.io/settings for the new home of each setting.
+
+> coze-mini-program@1.0.0 dev E:\Code\shiXun\7.10\yang_project\鏉ㄧ娑礬projects
+> pnpm exec concurrently --kill-others --kill-signal SIGKILL -n web,server -c blue,green "pnpm dev:web" "pnpm dev:server"
+
+[web] 
+[web] > coze-mini-program@1.0.0 dev:web E:\Code\shiXun\7.10\yang_project\鏉ㄧ娑礬projects
+[web] > taro build --type h5 --watch
+[web] 
+[server] 
+[server] > coze-mini-program@1.0.0 dev:server E:\Code\shiXun\7.10\yang_project\鏉ㄧ娑礬projects
+[server] > pnpm --filter server dev
+[server] 
+[server] 
+[server] > server@1.0.0 dev E:\Code\shiXun\7.10\yang_project\鏉ㄧ娑礬projects\server
+[server] > nest start --watch
+[server] 
+[web] 馃懡 Taro v4.1.9
+[web] 
+[server] [2J[3J[H[[90m11:19:09[0m] Starting compilation in watch mode...
+[server] 
+[web] [dotenv@17.2.3] injecting env (0) from .env.local -- tip: 馃攼 prevent committing .env to code: https://dotenvx.com/precommit
+[web]   [32m鉃?[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5000[22m/[39m
+[web]   [32m鉃?[39m  [1mNetwork[22m: [36mhttp://192.168.56.1:[1m5000[22m/[39m
+[web]   [32m鉃?[39m  [1mNetwork[22m: [36mhttp://192.168.75.1:[1m5000[22m/[39m
+[web]   [32m鉃?[39m  [1mNetwork[22m: [36mhttp://192.168.111.1:[1m5000[22m/[39m
+[web]   [32m鉃?[39m  [1mNetwork[22m: [36mhttp://192.168.110.84:[1m5000[22m/[39m
+[server] [[90m11:19:15[0m] Found 0 errors. Watching for file changes.
+[server] 
